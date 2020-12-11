@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Leaftlet Example</title>
+
+        <meta charset="UTF-8" />
+        <meta name="keywords" content="leftlet" />
+        <meta name="description" content="This is a Leaflet example" />
+        <meta name="author" content="Daniel Martinez" />
+
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin=""/>
+    </head>
+
+    <body>
+        <center><h1>Leaflet Example</h1></center>
+
+        <div id="mapid" style="height: 500px;"></div>
+
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin="">
+        </script>
+        <script>
+            let mymap = L.map('mapid').setView([51.505, -0.09], 13);
+
+            L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=ACCESS_TOKEN', {
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                maxZoom: 18,
+                id: 'mapbox/streets-v11',
+                tileSize: 512,
+                zoomOffset: -1,
+                accessToken: ACCESS_TOKEN
+            }).addTo(mymap);
+
+            var polygon = L.polygon([
+                [51.509, -0.08],
+                [51.503, -0.06],
+                [51.51, -0.047],
+                [51.52, -0.06]
+            ], {
+                color:'blue',
+                fillColor: '#f03',
+                fillOpacity: 0.2,
+                radius: 500
+            }).addTo(mymap);
+        </script>
+    </body>
+</html>

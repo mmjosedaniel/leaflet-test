@@ -3,7 +3,7 @@ const fs = require('fs');
 
 const PORT = 8080;
 
-fs.readFile('./Leaflet-test/index.html', (err, html) => {
+fs.readFile('./index.html', (err, html) => {
 
     if (err) throw err;
 
