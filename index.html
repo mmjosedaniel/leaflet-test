@@ -23,7 +23,8 @@
         crossorigin="">
         </script>
         <script>
-            let mymap = L.map('mapid').setView([51.505, -0.09], 13);
+            // setView selects the the coordinate for the map; which map is initialized
+            let mymap = L.map('mapid').setView([51.51, -0.09], 13);
 
             L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=ACCESS_TOKEN', {
                 attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -34,16 +35,77 @@
                 accessToken: ACCESS_TOKEN
             }).addTo(mymap);
 
-            var polygon = L.polygon([
-                [51.509, -0.08],
-                [51.503, -0.06],
-                [51.51, -0.047],
-                [51.52, -0.06]
-            ], {
-                color:'blue',
-                fillColor: '#f03',
-                fillOpacity: 0.2,
-                radius: 500
+            // NO geoJSON --->
+
+            // var polygon = L.polygon([
+            //     [51.509, -0.08],
+            //     [51.503, -0.06],
+            //     [51.51, -0.047],
+            //     [51.52, -0.06]
+            // ], {
+            //     color:'blue',
+            //     fillColor: '#f03',
+            //     fillOpacity: 0.2,
+            //     radius: 500
+            // }).addTo(mymap);
+            
+            // geoJSON implementation --->
+
+            let polygons = [{
+                "type": "Feature",
+                "properties": {"zona": "cafetal"},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [-0.08, 51.509],
+                            [-0.06, 51.503],
+                            [-0.047, 51.51],
+                            [-0.06, 51.52]
+                        ]
+                    ]
+                }
+            },
+            {
+                "type": "Feature",
+                "properties": {"zona": "area-comun"},
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [-0.08, 51.509],
+                            [-0.09, 51.51],
+                            [-0.07, 51.53],
+                            [-0.06, 51.52]
+                        ]
+                    ]
+                }
+            },
+        ];
+
+            let zonaCafetal = {
+                "color":'green',
+                "fillColor": 'gree',
+                "fillOpacity": 0.2,
+                "radius": 500
+                
+            };
+
+            let zonaAreaComun = {
+                "color":'blue',
+                "fillColor": 'blue',
+                "fillOpacity": 0.2,
+                "radius": 500
+                
+            };
+
+            L.geoJSON(polygons, {
+                style: function(feature) {
+                    switch (feature.properties.zona) {
+                        case 'cafetal': return zonaCafetal;
+                        case 'area-comun': return zonaAreaComun;
+                    }
+                }
             }).addTo(mymap);
         </script>
     </body>
